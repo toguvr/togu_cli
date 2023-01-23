@@ -27,13 +27,13 @@ export default class <%= props.nameUpperFirstCase %> {
   @UpdateDateColumn()
   updated_at: Date;
 
-  @ManyToOne(() => Enterprises, enterprises => enterprises.plans, {
+  @ManyToOne(() => Enterprises, enterprises => enterprises.<%= props.name %>s, {
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE',
   })
   @JoinColumn([{ name: 'enterprise_id', referencedColumnName: 'id' }])
   enterprise: Enterprises;
 
-  @OneToMany(() => BenchMark, wod => wod.user)
-  benchMark: BenchMark[];
+  // @OneToMany(() => BenchMark, wod => wod.user)
+  // benchMark: BenchMark[];
 }

@@ -16,22 +16,22 @@ const <%= props.name %>Controller = new <%= props.nameUpperFirstCase %>Controlle
 
 <%= props.name %>Router.post(
   '/',
-  celebrate({
-    [Segments.BODY]: {
-      start_date: Joi.date().required(),
-      finish_date: Joi.date().required(),
-    },
-  }),
+//  celebrate({
+//    [Segments.BODY]: {
+//      start_date: Joi.date().required(),
+//      finish_date: Joi.date().required(),
+//    },
+//  }),
   <%= props.name %>Controller.create,
 );
 
 <%= props.name %>Router.put(
   '/',
-  celebrate({
-    [Segments.BODY]: {
-      <%= props.name %>Id: Joi.string().uuid().required(),
-    },
-  }),
+//  celebrate({
+//   [Segments.BODY]: {
+//      <%= props.name %>Id: Joi.string().uuid().required(),
+//    },
+//  }),
   <%= props.name %>Controller.update,
 );
 

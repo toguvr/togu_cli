@@ -111,7 +111,11 @@ class <%= props.nameUpperFirstCase %>Service {
       throw new AppError('Item não existe.');
     }
 
-    <%= props.name %>.name = body.name
+    delete body.<%= props.name %>Id
+
+    Object.keys(body).forEach(key => {
+      return (<%= props.name %>[key] = body[key]);
+    });
 
     const result = await this.<%= props.name %>Repository.save(<%= props.name %>);
     return result;
