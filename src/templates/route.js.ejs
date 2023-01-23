@@ -1,0 +1,48 @@
+import { Router } from 'express';
+
+import { celebrate, Segments, Joi } from 'celebrate';
+import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
+
+import <%= props.nameUpperFirstCase %>Controller from '../controllers/<%= props.nameUpperFirstCase %>Controller';
+
+const <%= props.name %>Router = Router();
+const <%= props.name %>Controller = new <%= props.nameUpperFirstCase %>Controller();
+
+<%= props.name %>Router.use(ensureAuthenticated);
+
+<%= props.name %>Router.get('/', <%= props.name %>Controller.list);
+
+<%= props.name %>Router.get('/:<%= props.name %>Id', <%= props.name %>Controller.show);
+
+<%= props.name %>Router.post(
+  '/',
+  celebrate({
+    [Segments.BODY]: {
+      start_date: Joi.date().required(),
+      finish_date: Joi.date().required(),
+    },
+  }),
+  <%= props.name %>Controller.create,
+);
+
+<%= props.name %>Router.put(
+  '/',
+  celebrate({
+    [Segments.BODY]: {
+      <%= props.name %>Id: Joi.string().uuid().required(),
+    },
+  }),
+  <%= props.name %>Controller.update,
+);
+
+<%= props.name %>Router.delete(
+  '/:<%= props.name %>Id',
+  celebrate({
+    [Segments.PARAMS]: {
+      <%= props.name %>Id: Joi.string().uuid().required(),
+    },
+  }),
+  <%= props.name %>Controller.delete,
+);
+
+export default <%= props.name %>Router;

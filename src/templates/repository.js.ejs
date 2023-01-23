@@ -1,0 +1,54 @@
+import {
+  Repository,
+  getRepository,
+} from 'typeorm';
+
+import I<%= props.nameUpperFirstCase %>Repository from '../../../repositories/I<%= props.nameUpperFirstCase %>Repository';
+import ICreate<%= props.nameUpperFirstCase %>DTO from '../../../dtos/ICreate<%= props.nameUpperFirstCase %>DTO';
+import <%= props.nameUpperFirstCase %> from '../entities/<%= props.nameUpperFirstCase %>';
+
+class <%= props.nameUpperFirstCase %>Repository implements I<%= props.nameUpperFirstCase %>Repository {
+  private ormRepository: Repository<<%= props.nameUpperFirstCase %>>;
+
+  constructor() {
+    this.ormRepository = getRepository(<%= props.nameUpperFirstCase %>);
+  }
+
+  public async findById(
+    <%= props.name %>Id: string,
+  ): Promise<<%= props.nameUpperFirstCase %> | undefined> {
+    const <%= props.name %> = await this.ormRepository.findOne({
+      where: { id: <%= props.name %>Id },
+    });
+
+    return <%= props.name %>;
+  }
+
+  public async list(): Promise<<%= props.nameUpperFirstCase %>[]> {
+    const <%= props.name %> = await this.ormRepository.find();
+
+    return <%= props.name %>;
+  }
+
+  public async delete(<%= props.name %>: <%= props.nameUpperFirstCase %>): Promise<<%= props.nameUpperFirstCase %>> {
+    await this.ormRepository.remove(<%= props.name %>);
+
+    return <%= props.name %>;
+  }
+
+  public async create(
+    body: ICreate<%= props.nameUpperFirstCase %>DTO,
+  ): Promise<<%= props.nameUpperFirstCase %>> {
+    const <%= props.name %> = this.ormRepository.create(body);
+
+    await this.ormRepository.save(<%= props.name %>);
+
+    return <%= props.name %>;
+  }
+
+  public async save(<%= props.name %>: <%= props.nameUpperFirstCase %>): Promise<<%= props.nameUpperFirstCase %>> {
+    return this.ormRepository.save(<%= props.name %>);
+  }
+}
+
+export default <%= props.nameUpperFirstCase %>Repository;

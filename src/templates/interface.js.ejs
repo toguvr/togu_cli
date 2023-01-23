@@ -1,0 +1,11 @@
+import <%= props.nameUpperFirstCase %> from '../infra/typeorm/entities/<%= props.nameUpperFirstCase %>';
+import ICreate<%= props.nameUpperFirstCase %>DTO from '../dtos/ICreate<%= props.nameUpperFirstCase %>DTO';
+
+
+export default interface I<%= props.nameUpperFirstCase %>Repository {
+  findById(id: string): Promise<<%= props.nameUpperFirstCase %> | undefined>;
+  list(): Promise<<%= props.nameUpperFirstCase %>[]>;
+  delete(<%= props.name %>: <%= props.nameUpperFirstCase %>): Promise<<%= props.nameUpperFirstCase %>>;
+  create(data: ICreate<%= props.nameUpperFirstCase %>DTO): Promise<<%= props.nameUpperFirstCase %>>;
+  save(<%= props.name %>: <%= props.nameUpperFirstCase %>): Promise<<%= props.nameUpperFirstCase %>>;
+}

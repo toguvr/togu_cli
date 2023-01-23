@@ -1,0 +1,39 @@
+import {
+  Column,
+  Entity,
+  Index,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+  CreateDateColumn,
+} from 'typeorm';
+
+@Index('<%= props.name %>_PREENCHA_id_fk', ['enterprise_id'], {})
+@Entity('<%= props.name %>', { schema: 'nahora' })
+export default class <%= props.nameUpperFirstCase %> {
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
+
+  @Column({nullable: true})
+  title: string;
+
+  @Column()
+  enterprise_id: string;
+
+  @CreateDateColumn()
+  created_at: Date;
+
+  @UpdateDateColumn()
+  updated_at: Date;
+
+  @ManyToOne(() => Enterprises, enterprises => enterprises.plans, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  })
+  @JoinColumn([{ name: 'enterprise_id', referencedColumnName: 'id' }])
+  enterprise: Enterprises;
+
+  @OneToMany(() => BenchMark, wod => wod.user)
+  benchMark: BenchMark[];
+}

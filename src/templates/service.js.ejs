@@ -1,0 +1,121 @@
+import AppError from '@shared/errors/AppError';
+
+import { inject, injectable } from 'tsyringe';
+
+import I<%= props.nameUpperFirstCase %>Repository from '../repositories/I<%= props.nameUpperFirstCase %>Repository';
+import <%= props.nameUpperFirstCase %> from '../infra/typeorm/entities/<%= props.nameUpperFirstCase %>';
+
+interface IBody {
+  name: string
+  <%= props.name %>Id: string;
+}
+
+interface IRequest {
+  body: IBody;
+  user_id: string;
+}
+
+interface ISearch {
+  <%= props.name %>Id: string;
+  user_id: string;
+}
+
+@injectable()
+class <%= props.nameUpperFirstCase %>Service {
+  constructor(
+    @inject('<%= props.nameUpperFirstCase %>Repository')
+    private <%= props.name %>Repository: I<%= props.nameUpperFirstCase %>Repository,
+
+    @inject('EnterprisesRepository')
+    private enterprisesRepository: IEnterprisesRepository,
+  ) {}
+
+  public async show({
+    user_id,
+    <%= props.name %>Id
+  }: ISearch): Promise<<%= props.nameUpperFirstCase %> | undefined> {
+    const enterprise = await this.enterprisesRepository.findByOwnerId(user_id);
+
+    if (!enterprise) {
+      throw new AppError('Você não é dono de uma empresa.');
+    }
+
+    const result = await this.<%= props.name %>Repository.findById(<%= props.name %>Id);
+
+    return result;
+  }
+
+  public async list(
+    user_id:string
+  ): Promise<<%= props.nameUpperFirstCase %>[]> {
+    const enterprise = await this.enterprisesRepository.findByOwnerId(user_id);
+
+    if (!enterprise) {
+      throw new AppError('Você não é dono de uma empresa.');
+    }
+
+    const result = await this.<%= props.name %>Repository.list();
+
+    return result;
+  }
+
+  public async delete({
+    <%= props.name %>Id,
+    user_id,
+  }: ISearch): Promise<<%= props.nameUpperFirstCase %>> {
+    const enterprise = await this.enterprisesRepository.findByOwnerId(user_id);
+
+    if (!enterprise) {
+      throw new AppError('Você não é dono de uma empresa.');
+    }
+
+    const <%= props.name %> = await this.<%= props.name %>Repository.findById(<%= props.name %>Id);
+
+    if (!<%= props.name %>) {
+      throw new AppError('Item não existe.');
+    }
+
+    const result = await this.<%= props.name %>Repository.delete(<%= props.name %>);
+
+    return result;
+  }
+
+  public async create({
+    body,
+    user_id,
+  }: IRequest): Promise<<%= props.nameUpperFirstCase %>> {
+    const enterprise = await this.enterprisesRepository.findByOwnerId(user_id);
+
+    if (!enterprise) {
+      throw new AppError('Você não é dono de uma empresa.');
+    }
+
+    const result = await this.<%= props.name %>Repository.create(body);
+    return result;
+  }
+
+  public async update({
+    body,
+    user_id,
+  }: IRequest): Promise<<%= props.nameUpperFirstCase %>> {
+    const enterprise = await this.enterprisesRepository.findByOwnerId(user_id);
+
+    if (!enterprise) {
+      throw new AppError('Você não é dono de uma empresa.');
+    }
+
+    
+    const <%= props.name %> = await this.<%= props.name %>Repository.findById(body.<%= props.name %>Id);
+
+    if (!<%= props.name %>) {
+      throw new AppError('Item não existe.');
+    }
+
+    <%= props.name %>.name = body.name
+
+    const result = await this.<%= props.name %>Repository.save(<%= props.name %>);
+    return result;
+  }
+}
+
+export default <%= props.nameUpperFirstCase %>Service;
