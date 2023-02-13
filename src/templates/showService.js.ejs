@@ -20,7 +20,7 @@ class Show<%= props.nameUpperFirstCase %>Service {
   public async execute({
     user_id,
     <%= props.name %>Id
-  }: ISearch): Promise<<%= props.nameUpperFirstCase %> | undefined> {
+  }: ISearch): Promise<<%= props.nameUpperFirstCase %> | null> {
     const result = await this.<%= props.name %>Repository.findById(<%= props.name %>Id);
 
     return result;

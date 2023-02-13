@@ -1,0 +1,28 @@
+import <%= props.nameUpperFirstCase %>Repository from '../infra/typeorm/repositories/<%= props.nameUpperFirstCase %>Repository';
+import I<%= props.nameUpperFirstCase %>Repository from '../repositories/I<%= props.nameUpperFirstCase %>Repository';
+import Update<%= props.nameUpperFirstCase %>Service from './Update<%= props.nameUpperFirstCase %>Service';
+
+let fake<%= props.nameUpperFirstCase %>Repository: I<%= props.nameUpperFirstCase %>Repository;
+
+let update<%= props.nameUpperFirstCase %>Service: Update<%= props.nameUpperFirstCase %>Service;
+
+describe('Show<%= props.nameUpperFirstCase %> Unit Test', () => {
+  beforeEach(() => {
+    fake<%= props.nameUpperFirstCase %>Repository = new <%= props.nameUpperFirstCase %>Repository();
+
+    update<%= props.nameUpperFirstCase %>Service = new Update<%= props.nameUpperFirstCase %>Service(fake<%= props.nameUpperFirstCase %>Repository);
+  });
+
+  it('should be able to show', async () => {
+    await fake<%= props.nameUpperFirstCase %>Repository.create({
+      name: 'fake-name',
+    });
+
+    const response = await update<%= props.nameUpperFirstCase %>Service.execute({
+      body: { name: 'fake-name-new', <%= props.name %>Id: 'fake-<%= props.name %>Id' },
+      user_id: 'fake-user_id',
+    });
+
+    expect(response.name).toBe('fake-name-new');
+  });
+});

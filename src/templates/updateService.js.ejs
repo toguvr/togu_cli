@@ -21,8 +21,6 @@ class Update<%= props.nameUpperFirstCase %>Service {
     @inject('<%= props.nameUpperFirstCase %>Repository')
     private <%= props.name %>Repository: I<%= props.nameUpperFirstCase %>Repository,
 
-    @inject('EnterprisesRepository')
-    private enterprisesRepository: IEnterprisesRepository,
   ) {}
 
   public async execute({

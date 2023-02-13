@@ -1,0 +1,30 @@
+import <%= props.nameUpperFirstCase %>Repository from '../infra/typeorm/repositories/<%= props.nameUpperFirstCase %>Repository';
+import I<%= props.nameUpperFirstCase %>Repository from '../repositories/I<%= props.nameUpperFirstCase %>Repository';
+import Show<%= props.nameUpperFirstCase %>Service from './Show<%= props.nameUpperFirstCase %>Service';
+
+let fake<%= props.nameUpperFirstCase %>Repository: I<%= props.nameUpperFirstCase %>Repository;
+
+let show<%= props.nameUpperFirstCase %>Service: Show<%= props.nameUpperFirstCase %>Service;
+
+describe('Show<%= props.nameUpperFirstCase %> Unit Test', () => {
+  beforeEach(() => {
+    fake<%= props.nameUpperFirstCase %>Repository = new <%= props.nameUpperFirstCase %>Repository();
+
+    show<%= props.nameUpperFirstCase %>Service = new Show<%= props.nameUpperFirstCase %>Service(fake<%= props.nameUpperFirstCase %>Repository);
+  });
+
+  it('should be able to show', async () => {
+    await fake<%= props.nameUpperFirstCase %>Repository.create({
+      name: 'fake-name',
+    });
+
+    const spyShow<%= props.nameUpperFirstCase %>Repository = jest.spyOn(fake<%= props.nameUpperFirstCase %>Repository, 'findById');
+
+    await show<%= props.nameUpperFirstCase %>Service.execute({
+      user_id: 'fake-user_id',
+      <%= props.name %>Id: 'fake-<%= props.name %>Id',
+    });
+
+    expect(spyShow<%= props.nameUpperFirstCase %>Repository).toHaveBeenCalled();
+  });
+});

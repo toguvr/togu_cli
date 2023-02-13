@@ -59,10 +59,22 @@ module.exports = {
       props: { name, nameUpperFirstCase },
     })
 
+    await generate({
+      template: 'showServiceTest.js.ejs',
+      target: `src/modules/${name}/services/Show${nameUpperFirstCase}Service.spec.ts`,
+      props: { name, nameUpperFirstCase },
+    })
+
 
     await generate({
       template: 'listService.js.ejs',
       target: `src/modules/${name}/services/List${nameUpperFirstCase}Service.ts`,
+      props: { name, nameUpperFirstCase },
+    })
+
+    await generate({
+      template: 'listServiceTest.js.ejs',
+      target: `src/modules/${name}/services/List${nameUpperFirstCase}Service.spec.ts`,
       props: { name, nameUpperFirstCase },
     })
 
@@ -73,14 +85,32 @@ module.exports = {
     })
 
     await generate({
+      template: 'deleteServiceTest.js.ejs',
+      target: `src/modules/${name}/services/Delete${nameUpperFirstCase}Service.spec.ts`,
+      props: { name, nameUpperFirstCase },
+    })
+
+    await generate({
       template: 'createService.js.ejs',
       target: `src/modules/${name}/services/Create${nameUpperFirstCase}Service.ts`,
       props: { name, nameUpperFirstCase },
     })
 
     await generate({
+      template: 'createServiceTest.js.ejs',
+      target: `src/modules/${name}/services/Create${nameUpperFirstCase}Service.spec.ts`,
+      props: { name, nameUpperFirstCase },
+    })
+
+    await generate({
       template: 'updateService.js.ejs',
       target: `src/modules/${name}/services/Update${nameUpperFirstCase}Service.ts`,
+      props: { name, nameUpperFirstCase },
+    })
+
+    await generate({
+      template: 'updateServiceTest.js.ejs',
+      target: `src/modules/${name}/services/Update${nameUpperFirstCase}Service.spec.ts`,
       props: { name, nameUpperFirstCase },
     })
 

@@ -1,0 +1,39 @@
+import AppError from '@shared/errors/AppError';
+import <%= props.nameUpperFirstCase %>Repository from '../infra/typeorm/repositories/<%= props.nameUpperFirstCase %>Repository';
+import I<%= props.nameUpperFirstCase %>Repository from '../repositories/I<%= props.nameUpperFirstCase %>Repository';
+import Delete<%= props.nameUpperFirstCase %>Service from './Delete<%= props.nameUpperFirstCase %>Service';
+
+let fake<%= props.nameUpperFirstCase %>Repository: I<%= props.nameUpperFirstCase %>Repository;
+
+let delete<%= props.nameUpperFirstCase %>Service: Delete<%= props.nameUpperFirstCase %>Service;
+
+describe('Delete<%= props.nameUpperFirstCase %>Service Unit Test', () => {
+  beforeEach(() => {
+    fake<%= props.nameUpperFirstCase %>Repository = new <%= props.nameUpperFirstCase %>Repository();
+
+    delete<%= props.nameUpperFirstCase %>Service = new Delete<%= props.nameUpperFirstCase %>Service(fake<%= props.nameUpperFirstCase %>Repository);
+  });
+  it('should be able to delete', async () => {
+    await fake<%= props.nameUpperFirstCase %>Repository.create({
+      name: 'fake-name',
+    });
+
+    const spyDelete<%= props.nameUpperFirstCase %>Repository = jest.spyOn(fake<%= props.nameUpperFirstCase %>Repository, 'delete');
+
+    await delete<%= props.nameUpperFirstCase %>Service.execute({
+      <%= props.name %>Id: 'fake-<%= props.name %>Id',
+      user_id: 'fake-user_id',
+    });
+
+    expect(spyDelete<%= props.nameUpperFirstCase %>Repository).toHaveBeenCalled();
+  });
+
+  it('should not be able to delete a non exists user', async () => {
+    await expect(
+      delete<%= props.nameUpperFirstCase %>Service.execute({
+        <%= props.name %>Id: 'fake-<%= props.name %>Id',
+        user_id: 'fake-user_id',
+      }),
+    ).rejects.toBeInstanceOf(AppError);
+  });
+});
