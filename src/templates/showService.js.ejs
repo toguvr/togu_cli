@@ -1,0 +1,30 @@
+import AppError from '@shared/errors/AppError';
+
+import { inject, injectable } from 'tsyringe';
+
+import I<%= props.nameUpperFirstCase %>Repository from '../repositories/I<%= props.nameUpperFirstCase %>Repository';
+import <%= props.nameUpperFirstCase %> from '../infra/typeorm/entities/<%= props.nameUpperFirstCase %>';
+
+interface ISearch {
+  <%= props.name %>Id: string;
+  user_id: string;
+}
+
+@injectable()
+class Show<%= props.nameUpperFirstCase %>Service {
+  constructor(
+    @inject('<%= props.nameUpperFirstCase %>Repository')
+    private <%= props.name %>Repository: I<%= props.nameUpperFirstCase %>Repository,
+  ) {}
+
+  public async execute({
+    user_id,
+    <%= props.name %>Id
+  }: ISearch): Promise<<%= props.nameUpperFirstCase %> | undefined> {
+    const result = await this.<%= props.name %>Repository.findById(<%= props.name %>Id);
+
+    return result;
+  }
+}
+
+export default Show<%= props.nameUpperFirstCase %>Service;

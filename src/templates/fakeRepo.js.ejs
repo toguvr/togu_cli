@@ -1,0 +1,44 @@
+import I<%= props.nameUpperFirstCase %>Repository from '@modules/<%= props.name %>/repositories/I<%= props.nameUpperFirstCase %>Repository';
+import ICreate<%= props.nameUpperFirstCase %>DTO from '@modules/<%= props.name %>/dtos/ICreate<%= props.nameUpperFirstCase %>DTO';
+import <%= props.nameUpperFirstCase %> from '@modules/<%= props.name %>/infra/typeorm/entities/<%= props.nameUpperFirstCase %>';
+import { v4 as uuid } from 'uuid';
+
+class Fake<%= props.nameUpperFirstCase %>Repository implements I<%= props.nameUpperFirstCase %>Repository {
+  private <%= props.name %>s: <%= props.nameUpperFirstCase %>[] = [];
+
+  public async delete(<%= props.name %>: <%= props.nameUpperFirstCase %>): Promise<<%= props.nameUpperFirstCase %>> {
+    const findItem = this.<%= props.name %>s.find(current => current.id === <%= props.name %>.id);
+
+    this.<%= props.name %>s.filter(currentItem => currentItem.id !== <%= props.name %>.id);
+
+    return findItem!;
+  }
+
+  public async findById(id: string): Promise<<%= props.nameUpperFirstCase %> | null> {
+    const findItem = this.<%= props.name %>s.find(user => user.id === id);
+
+    return findItem || null;
+  }
+
+  public async create(itemData: ICreate<%= props.nameUpperFirstCase %>DTO): Promise<<%= props.nameUpperFirstCase %>> {
+    const item = new <%= props.nameUpperFirstCase %>();
+
+    Object.assign(item, { id: uuid() }, itemData);
+
+    this.<%= props.name %>s.push(item);
+
+    return item;
+  }
+
+  public async save(<%= props.name %>: <%= props.nameUpperFirstCase %>): Promise<<%= props.nameUpperFirstCase %>> {
+    const findItem = this.<%= props.name %>s.findIndex(
+      current<%= props.nameUpperFirstCase %> => current<%= props.nameUpperFirstCase %>.id === <%= props.name %>.id,
+    );
+
+    this.<%= props.name %>s[findItem] = <%= props.name %>;
+
+    return <%= props.name %>;
+  }
+}
+
+export default Fake<%= props.nameUpperFirstCase %>Repository;

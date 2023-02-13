@@ -3,7 +3,7 @@ import ICreate<%= props.nameUpperFirstCase %>DTO from '../dtos/ICreate<%= props.
 
 
 export default interface I<%= props.nameUpperFirstCase %>Repository {
-  findById(id: string): Promise<<%= props.nameUpperFirstCase %> | undefined>;
+  findById(id: string): Promise<<%= props.nameUpperFirstCase %> | null>;
   list(): Promise<<%= props.nameUpperFirstCase %>[]>;
   delete(<%= props.name %>: <%= props.nameUpperFirstCase %>): Promise<<%= props.nameUpperFirstCase %>>;
   create(data: ICreate<%= props.nameUpperFirstCase %>DTO): Promise<<%= props.nameUpperFirstCase %>>;

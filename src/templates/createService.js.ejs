@@ -1,0 +1,34 @@
+import AppError from '@shared/errors/AppError';
+
+import { inject, injectable } from 'tsyringe';
+
+import I<%= props.nameUpperFirstCase %>Repository from '../repositories/I<%= props.nameUpperFirstCase %>Repository';
+import <%= props.nameUpperFirstCase %> from '../infra/typeorm/entities/<%= props.nameUpperFirstCase %>';
+
+interface IBody {
+  name: string
+  <%= props.name %>Id: string;
+}
+
+interface IRequest {
+  body: IBody;
+  user_id: string;
+}
+
+@injectable()
+class Create<%= props.nameUpperFirstCase %>Service {
+  constructor(
+    @inject('<%= props.nameUpperFirstCase %>Repository')
+    private <%= props.name %>Repository: I<%= props.nameUpperFirstCase %>Repository,
+  ) {}
+
+  public async execute({
+    body,
+    user_id,
+  }: IRequest): Promise<<%= props.nameUpperFirstCase %>> {
+    const result = await this.<%= props.name %>Repository.create(body);
+    return result;
+  }
+}
+
+export default Create<%= props.nameUpperFirstCase %>Service;

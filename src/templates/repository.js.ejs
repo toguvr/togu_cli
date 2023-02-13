@@ -6,17 +6,18 @@ import {
 import I<%= props.nameUpperFirstCase %>Repository from '../../../repositories/I<%= props.nameUpperFirstCase %>Repository';
 import ICreate<%= props.nameUpperFirstCase %>DTO from '../../../dtos/ICreate<%= props.nameUpperFirstCase %>DTO';
 import <%= props.nameUpperFirstCase %> from '../entities/<%= props.nameUpperFirstCase %>';
+import { myPGDataSource as myDataSource } from '@shared/infra/typeorm/data-source';
 
 class <%= props.nameUpperFirstCase %>Repository implements I<%= props.nameUpperFirstCase %>Repository {
   private ormRepository: Repository<<%= props.nameUpperFirstCase %>>;
 
   constructor() {
-    this.ormRepository = getRepository(<%= props.nameUpperFirstCase %>);
+    this.ormRepository = myDataSource.getRepository(<%= props.nameUpperFirstCase %>);
   }
 
   public async findById(
     <%= props.name %>Id: string,
-  ): Promise<<%= props.nameUpperFirstCase %> | undefined> {
+  ): Promise<<%= props.nameUpperFirstCase %> | null> {
     const <%= props.name %> = await this.ormRepository.findOne({
       where: { id: <%= props.name %>Id },
     });

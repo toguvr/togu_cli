@@ -42,14 +42,45 @@ module.exports = {
     })
 
     await generate({
+      template: 'fakeRepo.js.ejs',
+      target: `src/modules/${name}/repositories/fakes/Fake${nameUpperFirstCase}Repository.ts`,
+      props: { name, nameUpperFirstCase },
+    })
+
+    await generate({
       template: 'interface.js.ejs',
       target: `src/modules/${name}/repositories/I${nameUpperFirstCase}Repository.ts`,
       props: { name, nameUpperFirstCase },
     })
 
     await generate({
-      template: 'service.js.ejs',
-      target: `src/modules/${name}/services/${nameUpperFirstCase}Service.ts`,
+      template: 'showService.js.ejs',
+      target: `src/modules/${name}/services/Show${nameUpperFirstCase}Service.ts`,
+      props: { name, nameUpperFirstCase },
+    })
+
+
+    await generate({
+      template: 'listService.js.ejs',
+      target: `src/modules/${name}/services/List${nameUpperFirstCase}Service.ts`,
+      props: { name, nameUpperFirstCase },
+    })
+
+    await generate({
+      template: 'deleteService.js.ejs',
+      target: `src/modules/${name}/services/Delete${nameUpperFirstCase}Service.ts`,
+      props: { name, nameUpperFirstCase },
+    })
+
+    await generate({
+      template: 'createService.js.ejs',
+      target: `src/modules/${name}/services/Create${nameUpperFirstCase}Service.ts`,
+      props: { name, nameUpperFirstCase },
+    })
+
+    await generate({
+      template: 'updateService.js.ejs',
+      target: `src/modules/${name}/services/Update${nameUpperFirstCase}Service.ts`,
       props: { name, nameUpperFirstCase },
     })
 

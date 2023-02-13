@@ -1,72 +1,77 @@
 import { Request, Response } from 'express';
 
 import { container } from 'tsyringe';
-import <%= props.nameUpperFirstCase %>Service from '../../../services/<%= props.nameUpperFirstCase %>Service';
+import Create<%= props.nameUpperFirstCase %>Service from '../../../services/Create<%= props.nameUpperFirstCase %>Service';
+import Show<%= props.nameUpperFirstCase %>Service from '../../../services/Show<%= props.nameUpperFirstCase %>Service';
+import List<%= props.nameUpperFirstCase %>Service from '../../../services/List<%= props.nameUpperFirstCase %>Service';
+import Delete<%= props.nameUpperFirstCase %>Service from '../../../services/Delete<%= props.nameUpperFirstCase %>Service';
+import Update<%= props.nameUpperFirstCase %>Service from '../../../services/Update<%= props.nameUpperFirstCase %>Service';
+import { instanceToInstance } from 'class-transformer';
 
 export default class <%= props.nameUpperFirstCase %>Controller {
   public async show(request: Request, response: Response): Promise<Response> {
     const user_id = request.user.id;
     const { <%= props.name %>Id } = request.params;
 
-    const service = container.resolve(<%= props.nameUpperFirstCase %>Service);
+    const service = container.resolve(Show<%= props.nameUpperFirstCase %>Service);
 
-    const result = await service.show({
+    const result = await service.execute({
       <%= props.name %>Id,
       user_id
     });
 
-    return response.json(result);
+    return response.json(instanceToInstance(result));
   }
 
   public async list(request: Request, response: Response): Promise<Response> {
     const user_id = request.user.id;
 
-    const service = container.resolve(<%= props.nameUpperFirstCase %>Service);
+    const service = container.resolve(List<%= props.nameUpperFirstCase %>Service);
 
-    const result = await service.list(user_id);
+    const result = await service.execute(user_id);
 
-    return response.json(result);
+    return response.json(instanceToInstance(result));
   }
 
   public async create(request: Request, response: Response): Promise<Response> {
     const user_id = request.user.id;
     const body = request.body;
 
-    const service = container.resolve(<%= props.nameUpperFirstCase %>Service);
+    const service = container.resolve(Create<%= props.nameUpperFirstCase %>Service);
 
-    const result = await service.create({
+    const result = await service.execute({
      body,
      user_id
     });
 
-    return response.json(result);
+    return response.json(instanceToInstance(result));
   }
   
   public async update(request: Request, response: Response): Promise<Response> {
     const user_id = request.user.id;
     const body = request.body;
 
-    const service = container.resolve(<%= props.nameUpperFirstCase %>Service);
+    const service = container.resolve(Update<%= props.nameUpperFirstCase %>Service);
 
-    const result = await service.update({
+    const result = await service.execute({
      body,
      user_id,
     });
 
-    return response.json(result);
+    return response.json(instanceToInstance(result));
   }
 
   public async delete(request: Request, response: Response): Promise<Response> {
     const user_id = request.user.id;
     const { <%= props.name %>Id } = request.params;
 
-    const service = container.resolve(<%= props.nameUpperFirstCase %>Service);
+    const service = container.resolve(Delete<%= props.nameUpperFirstCase %>Service);
 
-    const result = await service.delete({
+    const result = await service.execute({
       <%= props.name %>Id,
       user_id,
     });
 
-    return response.json(result);
+    return response.json(instanceToInstance(result));
   }
 }
