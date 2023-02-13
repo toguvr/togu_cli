@@ -10,7 +10,7 @@ import {
 } from 'typeorm';
 
 // @Index('<%= props.name %>_PREENCHA_id_fk', ['enterprise_id'], {})
-@Entity('<%= props.name %>', { schema: 'nahora' })
+@Entity('<%= props.name %>')
 export default class <%= props.nameUpperFirstCase %> {
   @PrimaryGeneratedColumn('uuid')
   id: string;
