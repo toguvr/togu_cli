@@ -12,11 +12,14 @@ class Fake<%= props.nameUpperFirstCase %>Repository implements I<%= props.nameUp
   }
 
   public async delete(<%= props.name %>: <%= props.nameUpperFirstCase %>): Promise<<%= props.nameUpperFirstCase %>> {
-    const findItem = this.<%= props.name %>s.find(current => current.id === <%= props.name %>.id);
 
-    this.<%= props.name %>s.filter(currentItem => currentItem.id !== <%= props.name %>.id);
 
-    return findItem!;
+    const itemIndex = this.<%= props.name %>s.findIndex(
+      current => current.id === <%= props.name %>.id,
+    );
+
+    this.<%= props.name %>s.splice(itemIndex, 1);
+    return this.<%= props.name %>s[itemIndex];
   }
 
   public async findById(id: string): Promise<<%= props.nameUpperFirstCase %> | null> {
