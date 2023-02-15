@@ -1,7 +1,7 @@
 import AppError from '@shared/errors/AppError';
-import <%= props.nameUpperFirstCase %>Repository from '../infra/typeorm/repositories/<%= props.nameUpperFirstCase %>Repository';
 import I<%= props.nameUpperFirstCase %>Repository from '../repositories/I<%= props.nameUpperFirstCase %>Repository';
 import Delete<%= props.nameUpperFirstCase %>Service from './Delete<%= props.nameUpperFirstCase %>Service';
+import Fake<%= props.nameUpperFirstCase %>Repository from '../repositories/fakes/Fake<%= props.nameUpperFirstCase %>Repository';
 
 let fake<%= props.nameUpperFirstCase %>Repository: I<%= props.nameUpperFirstCase %>Repository;
 
@@ -9,7 +9,7 @@ let delete<%= props.nameUpperFirstCase %>Service: Delete<%= props.nameUpperFirst
 
 describe('Delete<%= props.nameUpperFirstCase %>Service Unit Test', () => {
   beforeEach(() => {
-    fake<%= props.nameUpperFirstCase %>Repository = new <%= props.nameUpperFirstCase %>Repository();
+    fake<%= props.nameUpperFirstCase %>Repository = new Fake<%= props.nameUpperFirstCase %>Repository();
 
     delete<%= props.nameUpperFirstCase %>Service = new Delete<%= props.nameUpperFirstCase %>Service(fake<%= props.nameUpperFirstCase %>Repository);
   });

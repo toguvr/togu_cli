@@ -1,6 +1,6 @@
 {
   "name": "togu",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "togu CLI",
   "bin": {
     "togu": "bin/togu"

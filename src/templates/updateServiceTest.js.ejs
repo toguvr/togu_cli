@@ -1,6 +1,6 @@
-import <%= props.nameUpperFirstCase %>Repository from '../infra/typeorm/repositories/<%= props.nameUpperFirstCase %>Repository';
 import I<%= props.nameUpperFirstCase %>Repository from '../repositories/I<%= props.nameUpperFirstCase %>Repository';
 import Update<%= props.nameUpperFirstCase %>Service from './Update<%= props.nameUpperFirstCase %>Service';
+import Fake<%= props.nameUpperFirstCase %>Repository from '../repositories/fakes/Fake<%= props.nameUpperFirstCase %>Repository';
 
 let fake<%= props.nameUpperFirstCase %>Repository: I<%= props.nameUpperFirstCase %>Repository;
 
@@ -8,7 +8,7 @@ let update<%= props.nameUpperFirstCase %>Service: Update<%= props.nameUpperFirst
 
 describe('Show<%= props.nameUpperFirstCase %> Unit Test', () => {
   beforeEach(() => {
-    fake<%= props.nameUpperFirstCase %>Repository = new <%= props.nameUpperFirstCase %>Repository();
+    fake<%= props.nameUpperFirstCase %>Repository = new Fake<%= props.nameUpperFirstCase %>Repository();
 
     update<%= props.nameUpperFirstCase %>Service = new Update<%= props.nameUpperFirstCase %>Service(fake<%= props.nameUpperFirstCase %>Repository);
   });
