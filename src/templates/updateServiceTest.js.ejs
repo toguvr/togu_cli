@@ -14,15 +14,16 @@ describe('Show<%= props.nameUpperFirstCase %> Unit Test', () => {
   });
 
   it('should be able to show', async () => {
-    await fake<%= props.nameUpperFirstCase %>Repository.create({
+    const newItem = await fake<%= props.nameUpperFirstCase %>Repository.create({
       name: 'fake-name',
     });
 
     const response = await update<%= props.nameUpperFirstCase %>Service.execute({
-      body: { name: 'fake-name-new', <%= props.name %>Id: 'fake-<%= props.name %>Id' },
+      body: { name: 'fake-name-new', <%= props.name %>Id: newItem.id },
       user_id: 'fake-user_id',
     });
 
     expect(response.name).toBe('fake-name-new');
+    expect(response).toMatchObject({...newItem, name: 'fake-name-new' });
   });
 });

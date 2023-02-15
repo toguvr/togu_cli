@@ -14,17 +14,18 @@ describe('Show<%= props.nameUpperFirstCase %> Unit Test', () => {
   });
 
   it('should be able to show', async () => {
-    await fake<%= props.nameUpperFirstCase %>Repository.create({
+    const newItem = await fake<%= props.nameUpperFirstCase %>Repository.create({
       name: 'fake-name',
     });
 
     const spyShow<%= props.nameUpperFirstCase %>Repository = jest.spyOn(fake<%= props.nameUpperFirstCase %>Repository, 'findById');
 
-    await show<%= props.nameUpperFirstCase %>Service.execute({
+    const response = await show<%= props.nameUpperFirstCase %>Service.execute({
       user_id: 'fake-user_id',
-      <%= props.name %>Id: 'fake-<%= props.name %>Id',
+      <%= props.name %>Id: newItem.id,
     });
 
     expect(spyShow<%= props.nameUpperFirstCase %>Repository).toHaveBeenCalled();
+    expect(response).toMatchObject(newItem);
   });
 });

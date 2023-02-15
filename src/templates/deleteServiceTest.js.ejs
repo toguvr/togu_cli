@@ -14,18 +14,22 @@ describe('Delete<%= props.nameUpperFirstCase %>Service Unit Test', () => {
     delete<%= props.nameUpperFirstCase %>Service = new Delete<%= props.nameUpperFirstCase %>Service(fake<%= props.nameUpperFirstCase %>Repository);
   });
   it('should be able to delete', async () => {
-    await fake<%= props.nameUpperFirstCase %>Repository.create({
+    const newItem = await fake<%= props.nameUpperFirstCase %>Repository.create({
       name: 'fake-name',
     });
 
     const spyDelete<%= props.nameUpperFirstCase %>Repository = jest.spyOn(fake<%= props.nameUpperFirstCase %>Repository, 'delete');
 
     await delete<%= props.nameUpperFirstCase %>Service.execute({
-      <%= props.name %>Id: 'fake-<%= props.name %>Id',
+      <%= props.name %>Id: newItem.id,
       user_id: 'fake-user_id',
     });
 
     expect(spyDelete<%= props.nameUpperFirstCase %>Repository).toHaveBeenCalled();
+
+    const show = await fake<%= props.nameUpperFirstCase %>Repository.findById(newItem.id);
+
+    expect(show).toBeNull();
   });
 
   it('should not be able to delete a non exists user', async () => {
