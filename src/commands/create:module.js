@@ -14,7 +14,7 @@ module.exports = {
     await generate({
       template: 'dto.js.ejs',
       target: `src/modules/${name}/dtos/ICreate${nameUpperFirstCase}DTO.ts`,
-      props: { name: nameUpperFirstCase },
+      props: { name, nameUpperFirstCase },
     })
 
     await generate({
@@ -64,7 +64,6 @@ module.exports = {
       target: `src/modules/${name}/services/Show${nameUpperFirstCase}Service.spec.ts`,
       props: { name, nameUpperFirstCase },
     })
-
 
     await generate({
       template: 'listService.js.ejs',

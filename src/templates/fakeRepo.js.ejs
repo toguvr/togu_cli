@@ -6,6 +6,11 @@ import { v4 as uuid } from 'uuid';
 class Fake<%= props.nameUpperFirstCase %>Repository implements I<%= props.nameUpperFirstCase %>Repository {
   private <%= props.name %>s: <%= props.nameUpperFirstCase %>[] = [];
 
+
+  public async list(): Promise<<%= props.nameUpperFirstCase %>[]> {
+    return this.<%= props.name %>s;
+  }
+
   public async delete(<%= props.name %>: <%= props.nameUpperFirstCase %>): Promise<<%= props.nameUpperFirstCase %>> {
     const findItem = this.<%= props.name %>s.find(current => current.id === <%= props.name %>.id);
 
